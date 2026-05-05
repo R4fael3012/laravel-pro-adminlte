@@ -163,7 +163,7 @@
                   class="user-image rounded-circle shadow"
                   alt="User Image"
                 />
-                <span class="d-none d-md-inline">{{ Auth::user()?->name }}</span>
+                <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                 <!--begin::User Image-->
@@ -174,7 +174,7 @@
                     alt="User Image"
                   />
                   <p>
-                    {{Auth::user()?->name}}
+                    {{Auth::user()->name}}
                     <small>Member since Nov. 2023</small>
                   </p>
                 </li>
@@ -198,8 +198,12 @@
                 <!--end::Menu Body-->
                 <!--begin::Menu Footer-->
                 <li class="user-footer">
-                  <a href="#" class="btn btn-outline-secondary">Profile</a>
-                  <a href="#" class="btn btn-outline-danger float-end">Sign out</a>
+                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+
+                  <form action="{{ route('logout') }}" method="post" class="m-0">
+                    @csrf
+                    <button type="submit" class="btn btn-default btn-flat">Logout</button>
+                  </form>                           
                 </li>
                 <!--end::Menu Footer-->
               </ul>
