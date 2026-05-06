@@ -41,4 +41,28 @@ class UserController extends Controller
             'user' => $user
         ]);
     }
+
+    public function update(User $user, Request $request)
+    {
+        $input = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'exclude if:password,null|min:6'
+        ]);
+        $user-> fill($input);              
+        $user->save();
+
+        return redirect()
+        ->route('users.index')
+        ->with('status', 'Usuário editado com sucesso!');               
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return back()
+        /* ->route('users.index') */
+        ->with('status', 'Usuário deletado com sucesso!');
+    }
 }
