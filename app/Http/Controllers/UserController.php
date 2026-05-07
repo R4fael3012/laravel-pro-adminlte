@@ -9,7 +9,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('id', 'asc')->get();
         return view('users.index', [
             'users' => $users
         ]);
@@ -56,6 +56,18 @@ class UserController extends Controller
         ->route('users.index')
         ->with('status', 'Usuário editado com sucesso!');               
     }
+
+        public function updateProfile(User $user, Request $request)
+        {
+            $input = $request->validate([
+                'type' => 'required',
+                'address' => 'nullable'
+            ]);
+            $user->profile()->create($input); 
+            
+            return back()
+                ->with ('status', 'Perfil atualizado com sucesso!');
+        }
 
     public function destroy(User $user)
     {
