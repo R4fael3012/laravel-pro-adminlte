@@ -1,4 +1,5 @@
 <div class="card">
+    
     <form 
         action="{{ route('users.updateProfile', $user->id) }}" 
         method="POST"
@@ -29,7 +30,7 @@
 
             <div class="mb-3">
                 <label class="form-label">Endereço</label>
-                <input type="text" name="address" value="{{ old('address') }}" class="form-control @error('address') is-invalid @enderror">
+                <input type="text" name="address" value="{{ old('address') ?? $user?->profile?->address }}" class="form-control @error('address') is-invalid @enderror">
                 @error('address')
                     <div class="invalid-feedback">
                         {{ $message }}

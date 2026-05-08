@@ -9,6 +9,15 @@
             {{ $value }}
         </div>
     @endsession
+
+    <form action="{{ route('users.index') }}" method="GET" class="mb-3" style="width: 300px;">
+        <div class="input-group input-group-sm">
+          <input type="text" name="search" class="form-control" placeholder="Pesquisar por nome ou email" >
+          <button class="btn btn-outline-secondary" type="submit">Pesquisar</button>
+        </div>     
+    </form>
+
+
     <table class="table">
   <thead>
     <tr>
@@ -38,4 +47,5 @@
     
   </tbody>
 </table>
+{{ $users->links() }}
 @endsection
