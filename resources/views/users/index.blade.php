@@ -10,9 +10,11 @@
         </div>
     @endsession
 
+    
+
     <form action="{{ route('users.index') }}" method="GET" class="mb-3" style="width: 300px;">
         <div class="input-group input-group-sm">
-          <input type="text" name="search" class="form-control" placeholder="Pesquisar por nome ou email" >
+          <input type="text" name="search" class="form-control" value="{{ request()?->keyword }}" placeholder="Pesquisar por nome ou email" >
           <button class="btn btn-outline-secondary" type="submit">Pesquisar</button>
         </div>     
     </form>
@@ -34,12 +36,15 @@
       <td>{{ $user->name }}</td>
       <td>{{ $user->email }}</td>
       <td>
-        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm">Editar</a>
-        <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline;">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">Excluir</button>
-        </form>
+        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm">Editar</a>        
+        @can('destroy', $user)                  
+            <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">Excluir</button>
+            </form>
+        @endcan
+        
       </td>
     </tr>
     @endforeach
